@@ -70,8 +70,10 @@ If the character before point is the first element of
         "C-M-k"     #'sp-kill-sexp
         "C-M-t"     #'sp-transpose-sexp)
 
-      
-      )
+        "C-x k"     #'doom/kill-this-buffer-in-all-windows
+
+        )
+
 
 (setq doom-leader-alt-key (kbd "C-c"))
 
