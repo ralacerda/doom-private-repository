@@ -80,9 +80,20 @@ If the character before point is the first element of
 (map! :leader
       (:prefix-map ("e" . "emacs")
         :desc "Restart emacs" "r" #'doom/restart
-        :desc "Find config files" "d" #'doom/find-file-in-private-config
+        :desc "Find config files" "d" #'doom/find-file-in-private-config)
+
+  (:prefix-map ("v" . "versioning")
+        :desc "Git revert file"             "R"   #'vc-revert
+        (:when (featurep! :ui vc-gutter)
+          :desc "Git revert hunk"           "r"   #'git-gutter:revert-hunk
+          :desc "Git stage hunk"            "s"   #'git-gutter:stage-hunk
+          :desc "Git time machine"          "t"   #'git-timemachine-toggle
+          :desc "Jump to next hunk"         "n"   #'git-gutter:next-hunk
+          :desc "Jump to previous hunk"     "p"   #'git-gutter:previous-hunk)
         )
-      )
+  )
+
+
 
 (select-frame-set-input-focus (selected-frame))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
