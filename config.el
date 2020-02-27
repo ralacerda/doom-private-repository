@@ -11,7 +11,7 @@ If the character before point is the first element of
 `ess-assign-list', replace it with the last character typed."
 
   (interactive "p")
-  (let* ((assign (car ess-assign-list))
+  (let* ((assign ess-assign-list)
          (event (event-basic-type last-input-event))
          (char (ignore-errors (format "%c" event))))
     (cond ((and char
@@ -26,9 +26,37 @@ If the character before point is the first element of
              (replace-match "")))
           (t (insert assign)))))
 
-(setq ess-assign-list '("<- "))
+(defun racl/maybe-insert-pipe (arg)
+  "Insert the first element of `ess-assign-list' only:
+- If the point is not inside a string or comment
+- The char before point is a space
 
-(global-set-key (kbd "_") #'racl/maybe-insert-assign)
+If the character before point is the first element of
+`ess-assign-list', replace it with the last character typed."
+
+  (interactive "p")
+  (let* ((pipe ess-assign-pipe)
+         (event (event-basic-type last-input-event))
+         (char (ignore-errors (format "%c" event))))
+    (cond ((and char
+                (or
+                 (not (equal 32 (char-before)))
+                 (ess-inside-string-or-comment-p)))
+           (insert char))
+          ((re-search-backward pipe (- (point) (length
+                                                  pipe)) t)
+           (if (and char (numberp event))
+               (replace-match char t t)
+             (replace-match "")))
+          (t (insert pipe)))))
+
+
+(map! :map ess-mode-map
+      "_" #'racl/maybe-insert-assign
+      "%" #'racl/maybe-insert-pipe)
+
+(setq ess-assign-list "<- ")
+(setq ess-assign-pipe "%>% ")
 
 (defun racl/scroll-down ()
   (interactive)
