@@ -68,6 +68,11 @@ If the character before point is the first element of
   (scroll-up-command -5)
   )
 
+(defun racl/open-dropbox-file ()
+  (interactive)
+  (counsel-find-file "~/Dropbox")
+    )
+
 (setq scroll-preserve-screen-position 1)
 
 (setq scroll-margin 5)
