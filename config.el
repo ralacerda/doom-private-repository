@@ -27,12 +27,12 @@ If the character before point is the first element of
           (t (insert assign)))))
 
 (defun racl/maybe-insert-pipe (arg)
-  "Insert the first element of `ess-assign-list' only:
+  "Insert the first element of `ess-pipe-list' only:
 - If the point is not inside a string or comment
 - The char before point is a space
 
 If the character before point is the first element of
-`ess-assign-list', replace it with the last character typed."
+`ess-pipe-list', replace it with the last character typed."
 
   (interactive "p")
   (let* ((pipe ess-assign-pipe)
