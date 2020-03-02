@@ -86,11 +86,26 @@ If the character before point is the first element of
 (setq scroll-preserve-screen-position 1)
 (setq scroll-margin 5)
 
-(setq org-directory "~/new/org/location/")
+;;;;;;;;;;;;;;; Org-mode
+(setq org-directory "~/Dropbox/Org")
+
+;; (after! ess (appendq! ess-imenu-S-generic-expression ("Section" "^[ 	]*####*[ 	]+\\([^\n]+\\)" 1)))
+
+(after! ess (setq ess-imenu-S-generic-expression '(("Section" "^[ 	]*####*[ 	]+\\([^\n]+\\)" 1)
+    ("Functions" "^\\([^ \t\n]+\\)[ \t\n]*\\(?:<-\\|=\\)[ \t\n]*function[ ]*(" 1)
+    ("Classes" "^.*setClass(\\(.*\\)," 1)
+    ("Coercions" "^.*setAs(\\([^,]+,[^,]*\\)," 1) ; show from and to
+    ("Generics" "^.*setGeneric(\\([^,]*\\)," 1)
+    ("Methods" "^.*set\\(Group\\|Replace\\)?Method(\\([^,]+,[^,]*\\)" 2)
+    ("Package" "^.*\\(library\\|require\\)(\\([^)]*\\)" 2)
+    ("Data" "^\\(.+\\)[ \t\n]-*\\(?:<-\\|=\\)[ \t\n]*\\(read\\|.*data\\.frame\\).*(" 1))))
+
+
+;; (setq ess-imenu-S-generic-expression '(("Section" "^[ 	]*####*[ 	]+\\([^\n]+\\)" 1)))
+
+(setq set-fill-column 70)
 
 (setq doom-theme 'doom-opera)
-
-(setq golden-ratio-exclude-buffer-names '("*Backtrace*"))
 
 (global-set-key (kbd "C-v") #'racl/scroll-down)
 (global-set-key (kbd "M-v") #'racl/scroll-up)
@@ -142,9 +157,7 @@ If the character before point is the first element of
         "C-M-k"     #'sp-kill-sexp
         "C-M-t"     #'sp-transpose-sexp)
 
-        "C-x k"     #'doom/kill-this-buffer-in-all-windows
-
-        )
+        "C-x k"     #'doom/kill-this-buffer-in-all-windows)
 
 (setq doom-leader-alt-key (kbd "C-c"))
 
@@ -173,10 +186,21 @@ If the character before point is the first element of
   (setq doom-modeline-major-mode-icon t))
 
 (use-package! rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode)
-  )
+  :hook (prog-mode . rainbow-delimiters-mode))
 
-(golden-ratio-mode 1)
+(use-package! polymode
+  :config
+  (define-hostmode poly-markdown-hostmode
+    :mode 'markdown-mode)
+  (define-innermode poly-markdown-r-innermode
+  :mode 'ess-mode
+  :head-matcher "```\{.*\}"
+  :tail-matcher "```\n"
+  :head-mode 'host
+  :tail-mode 'host)
+  (define-polymode poly-markdown-mode
+  :hostmode 'poly-markdown-hostmode
+  :innermodes '(poly-markdown-r-innermode)))
 
 (setq +doom-dashboard-banner-dir (concat (dir!) "/banners/"))
 (setq +doom-dashboard-banner-file "logo.png")

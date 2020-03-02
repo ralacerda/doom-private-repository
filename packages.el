@@ -8,3 +8,4 @@
 
 (package! csv-mode)
 (package! golden-ratio)
+(package! polymode)
