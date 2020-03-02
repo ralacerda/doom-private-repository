@@ -50,6 +50,17 @@ If the character before point is the first element of
              (replace-match "")))
           (t (insert pipe)))))
 
+(defun racl/split-window-below-and-switch ()
+  "Split the window horizontally, then switch to the new pane."
+  (interactive)
+  (split-window-below)
+  (other-window 1))
+
+(defun racl/split-window-right-and-switch ()
+  "Split the window vertically, then switch to the new pane."
+  (interactive)
+  (split-window-right)
+  (other-window 1))
 
 (map! :map ess-mode-map
       "_" #'racl/maybe-insert-assign
@@ -60,24 +71,26 @@ If the character before point is the first element of
 
 (defun racl/scroll-down ()
   (interactive)
-  (scroll-up-command 5)
+  (scroll-up-command 10)
   )
 
 (defun racl/scroll-up ()
   (interactive)
-  (scroll-up-command -5)
+  (scroll-up-command -10)
   )
 
 (defun racl/open-dropbox-file ()
   (interactive)
   (counsel-find-file "~/Dropbox")
     )
-
 (setq scroll-preserve-screen-position 1)
-
 (setq scroll-margin 5)
 
-(setq doom-theme 'doom-dracula)
+(setq org-directory "~/new/org/location/")
+
+(setq doom-theme 'doom-opera)
+
+(setq golden-ratio-exclude-buffer-names '("*Backtrace*"))
 
 (global-set-key (kbd "C-v") #'racl/scroll-down)
 (global-set-key (kbd "M-v") #'racl/scroll-up)
@@ -89,6 +102,8 @@ If the character before point is the first element of
 (global-set-key (kbd "C-S-q") 'avy-goto-char-timer)
 (global-set-key (kbd "C-q") 'avy-goto-word-1)
 
+(global-set-key (kbd "C-x 2") #'racl/split-window-below-and-switch)
+(global-set-key (kbd "C-x 3") #'racl/split-window-right-and-switch)
 
 (map! "C-s"   #'swiper
 
@@ -135,14 +150,19 @@ If the character before point is the first element of
 
 (map! :leader
       (:prefix-map ("e" . "Emacs")
-        :desc "Restart emacs" "r" #'doom/restart
-        :desc "Find config files" "d" #'doom/find-file-in-private-config)
+        :desc "Restart emacs" "r" #'doom/restart)
+
+      (:prefix-map ("w" . "Window")
+        :desc "Undo Window Change" "u" #'winner-undo
+        :desc "Redo Window Change" "r" #'winner-redo)
 
       (:prefix-map ("o" . "open")
+        :desc "Open Org-Agenda" "a" #'org-agenda
         :desc "Open recent files" "r" #'recentf-open-files
         :desc "Save bookmark" "n" #'bookmark-set
         :desc "Load bookmark" "o" #'counsel-bookmark
         :desc "List bookmarks" "l" #'bookmark-bmenu-list
+        :desc "Find config files" "c" #'doom/open-private-config
         :desc "Open Dropbox file" "d" #'racl/open-dropbox-file))
 
 (select-frame-set-input-focus (selected-frame))
@@ -155,6 +175,8 @@ If the character before point is the first element of
 (use-package! rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
   )
+
+(golden-ratio-mode 1)
 
 (setq +doom-dashboard-banner-dir (concat (dir!) "/banners/"))
 (setq +doom-dashboard-banner-file "logo.png")
