@@ -202,6 +202,8 @@ If the character before point is the first element of
   :hostmode 'poly-markdown-hostmode
   :innermodes '(poly-markdown-r-innermode)))
 
+(add-to-list 'auto-mode-alist '("\\.Rmd\\'" . poly-markdown-mode))
+
 (setq +doom-dashboard-banner-dir (concat (dir!) "/banners/"))
 (setq +doom-dashboard-banner-file "logo.png")
 
