@@ -89,8 +89,6 @@ If the character before point is the first element of
 ;;;;;;;;;;;;;;; Org-mode
 (setq org-directory "~/Dropbox/Org")
 
-;; (after! ess (appendq! ess-imenu-S-generic-expression ("Section" "^[ 	]*####*[ 	]+\\([^\n]+\\)" 1)))
-
 (after! ess (setq ess-imenu-S-generic-expression '(("Section" "^[ 	]*####*[ 	]+\\([^\n]+\\)" 1)
     ("Functions" "^\\([^ \t\n]+\\)[ \t\n]*\\(?:<-\\|=\\)[ \t\n]*function[ ]*(" 1)
     ("Classes" "^.*setClass(\\(.*\\)," 1)
@@ -99,9 +97,6 @@ If the character before point is the first element of
     ("Methods" "^.*set\\(Group\\|Replace\\)?Method(\\([^,]+,[^,]*\\)" 2)
     ("Package" "^.*\\(library\\|require\\)(\\([^)]*\\)" 2)
     ("Data" "^\\(.+\\)[ \t\n]-*\\(?:<-\\|=\\)[ \t\n]*\\(read\\|.*data\\.frame\\).*(" 1))))
-
-
-;; (setq ess-imenu-S-generic-expression '(("Section" "^[ 	]*####*[ 	]+\\([^\n]+\\)" 1)))
 
 (setq set-fill-column 70)
 
