@@ -120,6 +120,8 @@ If the character before point is the first element of
 (global-set-key (kbd "C-x 2") #'racl/split-window-below-and-switch)
 (global-set-key (kbd "C-x 3") #'racl/split-window-right-and-switch)
 
+(global-set-key (kbd "M-f") #'forward-to-word)
+
 (map! "C-s"   #'swiper
 
       "C-h"   #'backward-delete-char-untabify
