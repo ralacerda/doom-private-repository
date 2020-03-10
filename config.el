@@ -176,7 +176,7 @@ If the character before point is the first element of
         :desc "Open Dropbox file" "d" #'racl/open-dropbox-file))
 
 (select-frame-set-input-focus (selected-frame))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (use-package! doom-modeline
   :config
