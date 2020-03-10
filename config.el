@@ -71,12 +71,12 @@ If the character before point is the first element of
 
 (defun racl/scroll-down ()
   (interactive)
-  (scroll-up-command 10)
+  (next-line 10)
   )
 
 (defun racl/scroll-up ()
   (interactive)
-  (scroll-up-command -10)
+  (previous-line 10)
   )
 
 (defun racl/open-dropbox-file ()
