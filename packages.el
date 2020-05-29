@@ -7,5 +7,4 @@
 ;; (package! builtin-package :disable t)
 
 (package! csv-mode)
-(package! golden-ratio)
 (package! polymode)

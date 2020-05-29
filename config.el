@@ -2,7 +2,7 @@
 
 ;; Place your private configuration here
 
-(defun racl/maybe-insert-assign (arg)
+(defun racl/maybe-insert-assign (_arg)
   "Insert the first element of `ess-assign-list' only:
 - If the point is not inside a string or comment
 - The char before point is a space
@@ -26,7 +26,7 @@ If the character before point is the first element of
              (replace-match "")))
           (t (insert assign)))))
 
-(defun racl/maybe-insert-pipe (arg)
+(defun racl/maybe-insert-pipe (_arg)
   "Insert the first element of `ess-pipe-list' only:
 - If the point is not inside a string or comment
 - The char before point is a space
@@ -71,12 +71,12 @@ If the character before point is the first element of
 
 (defun racl/scroll-down ()
   (interactive)
-  (next-line 10)
+ (scroll-up-command 8)
   )
 
 (defun racl/scroll-up ()
   (interactive)
-  (previous-line 10)
+  (scroll-down-command 10)
   )
 
 (defun racl/open-dropbox-file ()
@@ -116,6 +116,39 @@ If the character before point is the first element of
 (global-set-key (kbd "C-x 3") #'racl/split-window-right-and-switch)
 
 (global-set-key (kbd "M-f") #'forward-to-word)
+(global-unset-key (kbd "C-z"))
+
+(global-set-key (kbd "C-_") #'undo-only)
+
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+;; remap C-a to `smarter-move-beginning-of-line'
+(global-set-key [remap move-beginning-of-line]
+                'smarter-move-beginning-of-line)
+
+
+(setq-default left-fringe-width 20)
 
 (map! "C-s"   #'swiper
 
@@ -156,6 +189,7 @@ If the character before point is the first element of
 
         "C-x k"     #'doom/kill-this-buffer-in-all-windows)
 
+;; (setq doom-localleader-alt-key (kbd "C-,"))
 (setq doom-leader-alt-key (kbd "C-c"))
 
 (map! :leader
@@ -173,7 +207,9 @@ If the character before point is the first element of
         :desc "Load bookmark" "o" #'counsel-bookmark
         :desc "List bookmarks" "l" #'bookmark-bmenu-list
         :desc "Find config files" "c" #'doom/open-private-config
-        :desc "Open Dropbox file" "d" #'racl/open-dropbox-file))
+        :desc "Open Dropbox file" "d" #'racl/open-dropbox-file
+        :desc "Open Project" "p" #'projectile-switch-project)
+      )
 
 (select-frame-set-input-focus (selected-frame))
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -204,12 +240,12 @@ If the character before point is the first element of
 (setq +doom-dashboard-banner-dir (concat (dir!) "/banners/"))
 (setq +doom-dashboard-banner-file "logo.png")
 
-  (after! org
+(after! org
   (setq org-startup-indented nil)
   (setq org-adapt-indentation nil)
-  (setq org-startup-folded "showall"))
+  (setq org-startup-folded "showall")
 
-(map! :map org-mode-map
+  (map! :map org-mode-map
       "C-M-n"       #'org-metadown
       "C-M-p"       #'org-metaup
       "C-M-S-n"     #'org-shiftmetadown
@@ -220,7 +256,7 @@ If the character before point is the first element of
       "C-M-S-f"     #'org-shiftmetaright
       "C-M-S-b"     #'org-shiftmetaleft
 
-      "C-c TAB"     #'org-insert-heading)
+      "C-c TAB"     #'org-insert-heading))
 
 (setq doc-view-resolution 300)
 
@@ -232,3 +268,5 @@ If the character before point is the first element of
 (setq
   ispell-program-name
   "hunspell")
+
+(setq doom-font (font-spec :family "Noto Mono" :size 16))
