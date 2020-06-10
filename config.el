@@ -120,6 +120,9 @@ If the character before point is the first element of
 
 (global-set-key (kbd "C-_") #'undo-only)
 
+(global-set-key (kbd "C-a") #'doom/backward-to-bol-or-indent)
+(global-set-key (kbd "C-e") #'doom/forward-to-last-non-comment-or-eol)
+
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
 
