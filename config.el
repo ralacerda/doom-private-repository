@@ -3,7 +3,13 @@
 
 (setq doom-theme 'doom-opera)
 
+(custom-theme-set-faces! 'doom-opera
+
 (setq display-line-numbers-type nil)
+
+;;
+(setq-default cursor-type 'bar)
+(setq-default line-spacing 1)
 
 ;; Scrolling
 (setq scroll-preserve-screen-position 1)
@@ -20,15 +26,12 @@
 (global-auto-revert-mode 1)
 (setq auto-revert-verbose nil)
 
-
-
-(setq set-fill-column 70)
+(setq set-fill-column 90)
 
 (setq +doom-dashboard-banner-dir (concat (dir!) "/banners/"))
 (setq +doom-dashboard-banner-file "logo.png")
 
 (setq! show-paren-delay 1)
-
 ;; Packages
 (use-package! which-key
   :init
@@ -36,63 +39,32 @@
   (setq which-key-idle-delay 5)
   (setq which-key-idle-secondary-delay 0.05))
 
-
 (use-package! rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(global-set-key (kbd "C-v") (kbd "<mouse-5>"))
-(global-set-key (kbd "M-v") (kbd "<mouse-4>"))
+(setq doom-leader-alt-key "C-c")
+(setq doom-localleader-alt-key "C-c l")
 
-(map!
+(load!"keys.el")
 
- "M-o"       #'other-window
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
- "C-s"       #'swiper
- "C-x C-r"   #'counsel-recentf
+(setq company-idle-delay nil)
 
- "C-x C-l"   #'er-switch-to-previous-buffer
- "C-x l"     #'ivy-switch-buffer
+(setq doom-modeline-buffer-encoding nil)
 
- "M-u"       #'upcase-dwim
- "M-l"       #'downcase-dwim
- "M-c"       #'capitalize-dwim
+(use-package! flyspell
+  :config
+  (remove-hook! '(org-mode-hook
+                  markdown-mode-hook
+                  TeX-mode-hook
+                  rst-mode-hook
+                  mu4e-compose-mode-hook
+                  message-mode-hook
+                  git-commit-mode-hook)
+    #'flyspell-mode))
 
- "C-h"       #'backward-delete-char-untabify
- "M-h"       #'backward-kill-word
+(use-package! hl-todo
+  :hook (markdown-mode . hl-todo-mode))
 
- "M-p"       #'mark-paragraph
- 
- "C-="       #'er/expand-region
- "C--"       #'er/contract-region
-
- "C-'"       #'imenu
-
- "C-x k"     #'doom/kill-this-buffer-in-all-windows
-
- "C-a"       #'doom/backward-to-bol-or-indent
- "C-e"       #'doom/forward-to-last-non-comment-or-eol
-
- "C-x C-o"   ctl-x-4-map
-
- "<C-mouse-4>" #'text-scale-increase
- "<C-mouse-5>" #'text-scale-decrease
-
- "C-S-q"     #'avy-goto-char-timer
- "C-q"       #'avy-goto-word-1
-
-
- (:after company
-         :map company-active-map
-         "C-n"        #'company-select-next
-         "C-p"        #'company-select-previous
-         "C-s"        #'company-search-candidates
-         "M-s"        #'company-filter-candidates
-         "<C-tab>"    #'company-complete-common-or-cycle
-         [tab]        #'company-complete-common-or-cycle
-         [backtab]    #'company-select-previous
-         "C-RET"      #'counsel-company
-
-         :map company-search-map
-         "C-n"        #'company-search-repeat-forward
-         "C-p"        #'company-search-repeat-backward
-         "C-s"        (λ! (company-search-abort) (company-filter-candidates))))
+(custom-set-faces! `(git-gutter-fr:modified :foreground ,(doom-color 'yellow)))

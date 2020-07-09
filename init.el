@@ -16,13 +16,35 @@
 
 (doom!
 
- :completion
+  :completion
+ company
  ivy
+
+ :checkers
+ spell
+
+ :emacs
+ dired
 
  :ui
  doom
- doom-dashboard
- (modeline +light)
+ (doom-dashboard +light)
+ modeline
+ popup
+ hl-todo
+ vc-gutter
 
- :config
+ :lang
+ ess ;+lsp
+ markdown
+
+ :term
+ vte
+
+ :tools
+ magit
+ ;lsp
+ hugo
+
+  :config
  (default +smartparens))
