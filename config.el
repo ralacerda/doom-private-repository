@@ -3,8 +3,6 @@
 
 (setq doom-theme 'doom-opera)
 
-(custom-theme-set-faces! 'doom-opera
-
 (setq display-line-numbers-type nil)
 
 ;;
