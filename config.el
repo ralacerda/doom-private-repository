@@ -5,13 +5,6 @@
 
 (setq display-line-numbers-type nil)
 
-;;
-(setq-default cursor-type 'bar)
-(setq-default line-spacing 1)
-
-;; Scrolling
-(setq scroll-preserve-screen-position 1)
-
 ;; Backup Configuration
 (setq kept-old-version 2)
 (setq kept-newest-version 10)
@@ -31,38 +24,62 @@
 
 (setq! show-paren-delay 1)
 ;; Packages
-(use-package! which-key
-  :init
-  (setq which-key-show-early-on-C-h t)
-  (setq which-key-idle-delay 5)
-  (setq which-key-idle-secondary-delay 0.05))
+(setq which-key-show-early-on-C-h t)
+(setq which-key-idle-delay 5)
+(setq which-key-idle-secondary-delay 0.05)
 
 (use-package! rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(setq doom-leader-alt-key "C-c")
-(setq doom-localleader-alt-key "C-c l")
-
-(load!"keys.el")
-
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
-(setq company-idle-delay nil)
 
 (setq doom-modeline-buffer-encoding nil)
 
-(use-package! flyspell
-  :config
-  (remove-hook! '(org-mode-hook
-                  markdown-mode-hook
-                  TeX-mode-hook
-                  rst-mode-hook
-                  mu4e-compose-mode-hook
-                  message-mode-hook
-                  git-commit-mode-hook)
-    #'flyspell-mode))
+(setq-hook! 'ess-mode-hook
+    ess-indent-with-fancy-comments nil)
 
 (use-package! hl-todo
   :hook (markdown-mode . hl-todo-mode))
 
 (custom-set-faces! `(git-gutter-fr:modified :foreground ,(doom-color 'yellow)))
+
+(font-lock-add-keywords 'markdown-mode
+    '(("@[[:word:]]*" . font-lock-string-face)))
+
+(setq next-screen-context-lines 30)
+
+(setq flymake-start-on-flymake-mode nil)
+
+(map!
+
+ "M-o"                        #'other-window
+
+ "C-s"                        #'swiper
+ "C-x C-r"                    #'counsel-recentf
+
+ "C-x l"                      #'ivy-switch-buffer
+
+ "M-u"                        #'upcase-dwim
+ "M-l"                        #'downcase-dwim
+ "M-c"                        #'capitalize-dwim
+
+ "C-h"                        #'backward-delete-char-untabify
+ "M-h"                        #'backward-kill-word
+
+ "M-p"                        #'mark-paragraph
+
+ "C-x k"                      #'doom/kill-this-buffer-in-all-windows
+
+ "C-q"                        #'avy-goto-word-1
+
+ "C-x p"                      #'+popup/close
+
+ "C-."                        #'company-complete
+
+ "C-r"                        #'counsel-M-x
+
+ ;; "C-t"                        #'iy-go-up-to-char
+
+ ;;"C-S-t"                      #'iy-go-up-to-char-backward
+
+ )

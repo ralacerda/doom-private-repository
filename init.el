@@ -17,34 +17,37 @@
 (doom!
 
   :completion
- company
- ivy
+  company
+  ivy
 
- :checkers
- spell
+  :checkers
+  ;; spell
+  ;; syntax
 
- :emacs
- dired
+  :emacs
+  dired
+  undo
 
- :ui
- doom
- (doom-dashboard +light)
- modeline
- popup
- hl-todo
- vc-gutter
+  :ui
+  doom-dashboard
+  doom
+  modeline
+  (popup +defaults)
+  ophints
+  hl-todo
+  treemacs
 
- :lang
- ess ;+lsp
- markdown
+  :lang
+  ess
+  markdown
+  org
 
- :term
- vte
+  :term
+  vterm
 
- :tools
- magit
- ;lsp
- hugo
+  :tools
+  magit
+  hugo
 
   :config
- (default +smartparens))
+  (default +bindings +smartparens))
