@@ -18,15 +18,16 @@
 
   :completion
   company
-  ivy
-
-  :checkers
-  ;; spell
-  ;; syntax
+  (vertico +icons)
 
   :emacs
   dired
   undo
+  vc
+  tree
+
+  :checkers
+  syntax
 
   :ui
   doom-dashboard
@@ -34,20 +35,25 @@
   modeline
   (popup +defaults)
   ophints
-  hl-todo
   treemacs
+  ophints
+
+  :editor
+  snippets
 
   :lang
-  ess
   markdown
   org
+  python
+  emacs-lisp
+  sh
 
   :term
   vterm
 
   :tools
   magit
-  hugo
+  lookup
 
   :config
   (default +bindings +smartparens))
