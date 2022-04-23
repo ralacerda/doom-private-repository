@@ -54,10 +54,10 @@
 
  "M-o"                        #'other-window
 
- "C-s"                        #'swiper
- "C-x C-r"                    #'counsel-recentf
+ "C-s"                        #'consult-line
+ "C-x C-r"                    #'consult-recent-file
 
- "C-x l"                      #'ivy-switch-buffer
+ "C-x l"                      #'consult-buffer
 
  "M-u"                        #'upcase-dwim
  "M-l"                        #'downcase-dwim
@@ -76,10 +76,4 @@
 
  "C-."                        #'company-complete
 
- "C-r"                        #'counsel-M-x
-
- ;; "C-t"                        #'iy-go-up-to-char
-
- ;;"C-S-t"                      #'iy-go-up-to-char-backward
-
- )
+  )
