@@ -76,4 +76,6 @@
 
  "C-."                        #'company-complete
 
+ "C-z"                        #'magit-status
+
   )
