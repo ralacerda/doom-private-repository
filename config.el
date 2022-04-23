@@ -78,4 +78,5 @@
 
  "C-z"                        #'magit-status
 
+ "C-t"                        #'+treemacs/toggle
   )
