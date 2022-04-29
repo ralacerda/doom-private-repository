@@ -1,9 +1,15 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; Visual options
 (setq doom-font (font-spec :family "Hack" :size 16))
-
 (setq doom-theme 'doom-opera)
-
 (setq display-line-numbers-type nil)
+(setq set-fill-column 90)
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; A nice banner in the dashboard
+(setq +doom-dashboard-banner-dir (concat (dir!) "/banners/"))
+(setq +doom-dashboard-banner-file "logo.png")
 
 ;; Backup Configuration
 (setq kept-old-version 2)
@@ -12,18 +18,16 @@
 (setq delete-old-versions t)
 (setq version-control t)
 
-;; Auto-rever since we are not locking files
+;; Auto-revert since we are not locking files. This means if some other
+;; application modifies the file, the buffer will update to match it
 (setq create-lockfiles nil)
 (global-auto-revert-mode 1)
 (setq auto-revert-verbose nil)
 
-(setq set-fill-column 90)
-
-(setq +doom-dashboard-banner-dir (concat (dir!) "/banners/"))
-(setq +doom-dashboard-banner-file "logo.png")
 
 (setq! show-paren-delay 1)
-;; Packages
+
+;; Extra package configuration
 (setq which-key-show-early-on-C-h t)
 (setq which-key-idle-delay 5)
 (setq which-key-idle-secondary-delay 0.05)
@@ -31,7 +35,6 @@
 (use-package! rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 (setq doom-modeline-buffer-encoding nil)
 
