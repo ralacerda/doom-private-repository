@@ -74,6 +74,7 @@
  "C-x k"                      #'doom/kill-this-buffer-in-all-windows
 
  "C-q"                        #'avy-goto-word-1
+ "M-j"                        #'avy-goto-char-timer
 
  "C-x p"                      #'+popup/close
 
@@ -81,5 +82,4 @@
 
  "C-z"                        #'magit-status
 
- "C-t"                        #'+treemacs/toggle
   )

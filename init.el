@@ -40,6 +40,7 @@
 
   :editor
   snippets
+  format
 
   :lang
   markdown
